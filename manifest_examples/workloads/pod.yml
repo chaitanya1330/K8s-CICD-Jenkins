@@ -1,0 +1,11 @@
+---
+apiversion: v1
+kind: pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: my-container
+      image: nginx:latest
+      ports:
+      - containerPort: 8080

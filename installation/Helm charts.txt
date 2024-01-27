@@ -1,0 +1,30 @@
+To install helm:
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+to create a chart :
+helm create <chartname>
+
+to check:
+helm lint <chartname>
+helm install <chartname> --debug --dry-run springboot
+
+to install or to run:
+helm install <releasename> <chartname>
+
+helm list -a
+kubectl get all
+
+if u want to upgrade:
+helm upgrade <releasename> .
+
+if u want to go back only:
+helm rollback <releasename> 1
+
+to uninstall:
+helm delete <releasename>
+
+
+
+

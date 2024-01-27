@@ -1,0 +1,20 @@
+Thank you for installing My Application!
+
+Access your application at:
+http://LoadbalancerIP.com
+
+Post-Installation Steps:
+1. Configure your application by updating the configuration file.
+2. Set environment variables as needed.
+
+Troubleshooting:
+- If you encounter any issues, check the logs using the following command:
+  kubectl logs <pod-name>
+
+Additional Resources:
+- Documentation: http://chaitanya.com/docs
+- Support: chaitanyavantaku@example.com
+
+Cleanup:
+- To uninstall the application, run:
+  helm uninstall release-name

@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: custom-con
+          image: 350515911022.dkr.ecr.us-east-2.amazonaws.com/database:v1
+          resources:
+            limits:
+              cpu: 600m
+            requests:
+              cpu: 250m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: custom-con
+spec:
+  selector:
+    app: mysql
+  type: ClusterIP
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306

@@ -1,0 +1,26 @@
+appserver:
+  image:
+    repository: 350515911022.dkr.ecr.us-east-2.amazonaws.com/new_chatapp
+    tag: v2
+
+
+
+  resources:
+    limits:
+      cpu: 500m
+    requests:
+      cpu: 100m
+
+
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 30
+  # targetCPUUtilizationPercentage: 50

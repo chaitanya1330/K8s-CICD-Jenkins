@@ -1,0 +1,6 @@
+apiVersion: v2 
+name: appserver 
+description: A Helm chart for my backend in my cluster
+type: application
+version: 0.1.0 
+appVersion: 1.16.0

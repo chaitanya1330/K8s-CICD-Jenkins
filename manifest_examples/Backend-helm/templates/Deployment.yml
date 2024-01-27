@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appserver
+  labels:
+    app: appserver
+spec:
+  replicas: {{ .Values.appserver.replicaCount }}
+  selector:
+    matchLabels:
+      app: appserver
+  template:
+    metadata:
+      labels:
+        app: appserver
+    spec:
+      containers:
+        - name: app-cont
+          image: "{{ .Values.appserver.image.repository }}:{{ .Values.appserver.image.tag }}"
+          imagePullPolicy: {{ .Values.appserver.image.pullPolicy }}
+          env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysqldb-secret
+                  key: DATABASE_USER
+            - name: DATABASE_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: mysqldb-secret
+                  key: DATABASE_PASSWORD
+          resources: {{ .Values.appserver.resources | toYaml | nindent 12 }} 
+     

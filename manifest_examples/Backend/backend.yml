@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appserver
+  labels:
+    app: appserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appserver
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: appserver
+    spec:
+      containers:
+        - name: app-cont
+          image: 350515911022.dkr.ecr.us-east-2.amazonaws.com/new_chatapp:v2
+          imagePullPolicy: Always
+          env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysqldb-secret
+                  key: DATABASE_USER
+            - name: DATABASE_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: mysqldb-secret
+                  key: DATABASE_PASSWORD
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 100m
+      # volumes:
+      # - name: app-config
+      #   secret:
+      #     secretName: my-app-secret

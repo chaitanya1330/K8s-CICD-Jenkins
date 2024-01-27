@@ -1,0 +1,38 @@
+# frontend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: frontend
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: chatapp
+            mountPath: /etc/nginx/conf.d/
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+      volumes:
+      - name: chatapp
+        configMap:
+          name: configmap
+
