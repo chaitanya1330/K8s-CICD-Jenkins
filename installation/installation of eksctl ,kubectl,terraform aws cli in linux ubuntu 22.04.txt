@@ -1,5 +1,5 @@
 eksctl installation:
-
+----------------------------------------
 sudo apt-get update && sudo apt-get install -y awscli
 sudo apt-get install -y unzip
 
@@ -8,20 +8,41 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 
 kubectl installation:
+-----------------------------------------
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+Validate the kubectl binary against the checksum file:
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+If valid, the output is:
+kubectl: OK
+
+Install kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+Note:
+If you do not have root access on the target system, you can still install kubectl to the ~/.local/bin directory:
+
 chmod +x kubectl
+mkdir -p ~/.local/bin
+mv ./kubectl ~/.local/bin/kubectl
+# and then append (or prepend) ~/.local/bin to $PATH
 
-sudo mv kubectl /usr/local/bin/
+Test to ensure the version you installed is up-to-date:
 kubectl version --client
+Or use this for detailed view of version:
+kubectl version --client --output=yaml
 
 awscli installation:
+-----------------
 sudo apt-get update
 sudo apt-get install -y awscli
 
 aws --version
 
 terrafrom --installtion
+------------------------------------------
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 wget -O- https://apt.releases.hashicorp.com/gpg | \
 gpg --dearmor | \
