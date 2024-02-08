@@ -31,8 +31,30 @@ eksctl create cluster
 --full-ecr-access
 --managed
 
+but before doing the below work we have to update our aws cli in our instance to latest version:
+to upgrade it:
+first check the version: aws --version
 
-eksctl create cluster --name my-eks-cluster --region us-east-2 --version 1.27 --vpc-public-subnets subnet-00043039e78fa62b8,subnet-0e2cc2f1ff60db915 --without-nodegroup
+Install AWS CLI using Pip (if not installed): 
+pip install awscli --upgrade --user
+
+if pip is not there:
+sudo apt update
+sudo apt install python3-pip
+
+Upgrade AWS CLI: If the AWS CLI is already installed, you can upgrade it to the latest version using Pip:
+pip install awscli --upgrade --user
+now do the below part and once more check the aws version: aws --version
+
+
+after installing the cluster through eksctl we have to update the aws cli and kubeconfig file in order to connect with our cluster:
+aws eks update-kubeconfig --name Kubernetes-cluster --region us-east-2
+check cluster status:
+aws eks describe-cluster --name Kubernetes-cluster --region us-east-2
+orelse we can regenerate that file :
+eksctl utils write-kubeconfig --cluster Kubernetes-cluster --region us-east-2
+
+
 
 
   eksctl create nodegroup \
