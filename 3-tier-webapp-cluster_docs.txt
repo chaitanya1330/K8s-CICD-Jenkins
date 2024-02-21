@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: database
-        image: atharvajadhao/database-image:latest
+        image: chaitanyachay/database-image:latest
         ports:
         - containerPort: 3306
 ---
@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: atharvajadhao/backend-image:latest
+        image: chaitanyachay/backend-image:latest
         ports:
         - containerPort: 8000
         env:
@@ -108,7 +108,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: atharvajadhao/frontend-image:latest
+          image: chaitanyachay/frontend-image:latest
           ports:
             - containerPort: 80
           env:
